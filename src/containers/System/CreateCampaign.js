@@ -232,7 +232,7 @@ const CreateCampaign = () => {
                 </div>
                 <div className="mt-6">
                     <Button
-                        text="Create Campaign"
+                        text="Tạo chiến dịch"
                         textColor="text-white"
                         bgColor="bg-[#ED1651] hover:bg-[#C21243]"
                         px="px-6"

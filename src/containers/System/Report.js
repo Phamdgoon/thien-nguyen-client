@@ -59,9 +59,9 @@ const Report = () => {
                         const reportData = response.data.response;
                         const labels = reportData.map((item) => {
                             if (timeFilter === "month") {
-                                return item.month;
+                                return `T${item.month}, ${item.year}`;
                             } else if (timeFilter === "quarter") {
-                                return `Q${item.quarter}`;
+                                return `Q${item.quarter}, ${item.year}`;
                             } else {
                                 return item.year;
                             }
@@ -94,9 +94,9 @@ const Report = () => {
                         const reportData = response.data.response;
                         const labels = reportData.map((item) => {
                             if (timeFilter === "month") {
-                                return `Tháng ${item.month}`;
+                                return `T${item.month}, ${item.year}`;
                             } else if (timeFilter === "quarter") {
-                                return `Quý ${item.quarter}`;
+                                return `Q${item.quarter}, ${item.year}`;
                             } else {
                                 return item.year;
                             }

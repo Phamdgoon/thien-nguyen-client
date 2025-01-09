@@ -78,10 +78,11 @@ const ManageVolunteer = () => {
             <table className="w-full table-auto">
                 <thead>
                     <tr className="flex w-full bg-gray-100">
+                        <th className="border flex-1 py-2">STT</th>
                         <th className="border flex-1 py-2">Tên TNV</th>
                         <th className="border flex-1 py-2">Tiêu đề</th>
-                        <th className="border flex-1 py-2">Skills</th>
-                        <th className="border flex-1 py-2">Experience</th>
+                        <th className="border flex-1 py-2">Kỹ năng</th>
+                        <th className="border flex-1 py-2">Kinh nghiệm</th>
                         <th className="border flex-1 py-2">Nhiệm vụ</th>
                         <th className="border flex-1 py-2">Trạng thái</th>
                         <th className="border flex-1 py-2">Tùy chọn</th>
@@ -95,11 +96,14 @@ const ManageVolunteer = () => {
                             </td>
                         </tr>
                     ) : (
-                        volunteer.map((item) => (
+                        volunteer.map((item, index) => (
                             <tr
                                 className="flex items-center h-16"
                                 key={item.id}
                             >
+                                <td className="border px-2 flex-1 h-full flex items-center justify-center">
+                                    {index + 1}
+                                </td>
                                 <td className="border px-2 flex-1 h-full flex items-center justify-center">
                                     {item?.user?.name}
                                 </td>

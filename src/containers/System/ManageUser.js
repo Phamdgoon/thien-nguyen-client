@@ -3,6 +3,7 @@ import * as actions from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { apiDeleteUser } from "../../services/user";
 import Swal from "sweetalert2";
+import { blobToBase64 } from "../../utils/Common/tobase64";
 
 const ManageUser = () => {
     const dispatch = useDispatch();
@@ -30,10 +31,11 @@ const ManageUser = () => {
             <table className="w-full table-auto">
                 <thead>
                     <tr className="flex w-full bg-gray-100">
-                        <th className="border flex-1 py-2">Avatar</th>
+                        <th className="border flex-1 py-2">STT</th>
+                        <th className="border flex-1 py-2">Ảnh đại diện</th>
                         <th className="border flex-1 py-2">Tên</th>
                         <th className="border flex-1 py-2">Email</th>
-                        <th className="border flex-1 py-2">Phone</th>
+                        <th className="border flex-1 py-2">Số điện thoại</th>
                         <th className="border flex-1 py-2">Tùy chọn</th>
                     </tr>
                 </thead>
@@ -45,14 +47,17 @@ const ManageUser = () => {
                             </td>
                         </tr>
                     ) : (
-                        users.map((item) => (
+                        users.map((item, index) => (
                             <tr
                                 className="flex items-center h-16"
                                 key={item.id}
                             >
+                                <td className="border px-2 flex-1 h-full flex items-center justify-center">
+                                    {index + 1}
+                                </td>
                                 <td className="border flex-1 h-full flex items-center justify-center ">
                                     <img
-                                        src={item?.image || ""}
+                                        src={blobToBase64(item?.avatar) || ""}
                                         alt="avatar-user"
                                         className="w-10 h-10 object-cover rounded-md"
                                     />

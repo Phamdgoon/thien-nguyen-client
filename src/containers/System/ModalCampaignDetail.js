@@ -87,13 +87,13 @@ const ModalCampaignDetail = ({
                                     <img
                                         src={formData.image}
                                         alt="Campaign"
-                                        className="w-[180px] h-[140px] rounded-lg"
+                                        className="w-[200px] h-[180px] rounded-lg"
                                     />
                                 )}
                                 <div className="w-full">
                                     <textarea
-                                        cols="74"
-                                        rows="5"
+                                        cols="72"
+                                        rows="8"
                                         label="Mô tả"
                                         value={formData.description || ""}
                                         readOnly

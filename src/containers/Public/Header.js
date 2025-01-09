@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { Button } from "../../components";
@@ -6,8 +6,10 @@ import icons from "../../utils/icons";
 import { path } from "../../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions";
+import { blobToBase64 } from "../../utils/Common/tobase64";
+import anonavatar from "../../assets/anon-avatar.png";
 
-const { CiLogin, BsPersonCircle } = icons;
+const { CiLogin } = icons;
 
 const notActive = "hover:text-[#F5F5F5] px-4 h-full flex items-center";
 const active = "hover:text-[#ED1651] px-4 h-full flex items-center";
@@ -18,6 +20,8 @@ const Header = () => {
     const goLogin = useCallback((flag) => {
         navigate(path.LOGIN, { state: { flag } });
     }, []);
+    const { currentData } = useSelector((state) => state.user);
+
     const hanldeClickDonation = () => {
         navigate(path.PROJECT_CAMPAIGN);
     };
@@ -31,6 +35,9 @@ const Header = () => {
     };
     const handleNavigateDetailRegisterCampain = () => {
         navigate(path.DETAIL_REGISTER_CAMPAIGN);
+    };
+    const handleNavigateDonationHistory = () => {
+        navigate(path.DONATION_HISTORY);
     };
 
     return (
@@ -60,6 +67,7 @@ const Header = () => {
                     >
                         Dự án
                     </NavLink>
+
                     <Button
                         text="Ủng hộ ngay"
                         bgColor="bg-[#ED1651] hover:bg-opacity-75"
@@ -67,7 +75,6 @@ const Header = () => {
                         px="px-6"
                         onclick={hanldeClickDonation}
                     />
-
                     <div className="ml-6 gap-2 flex items-center">
                         {!isLoggedIn && (
                             <div className="flex items-center gap-3">
@@ -94,17 +101,30 @@ const Header = () => {
                                     <Button
                                         text={"Đăng xuất"}
                                         textColor="text-gray-500 hover:text-[#ED1651]"
-                                        onclick={() =>
-                                            dispatch(actions.logout("user"))
-                                        }
+                                        onclick={() => {
+                                            dispatch(actions.logout("user"));
+                                            navigate("/");
+                                        }}
                                     />
                                     <div className="relative">
-                                        <BsPersonCircle
-                                            size={26}
-                                            color="gray"
-                                            onClick={toggleDropdown}
-                                            className="cursor-pointer"
-                                        />
+                                        {currentData.avatar ? (
+                                            <img
+                                                src={blobToBase64(
+                                                    currentData.avatar
+                                                )}
+                                                alt="Avatar"
+                                                className="w-8 h-8 rounded-full cursor-pointer"
+                                                onClick={toggleDropdown}
+                                            />
+                                        ) : (
+                                            <img
+                                                src={anonavatar}
+                                                alt="Avatar mặc định"
+                                                className="w-6 h-6 rounded-full cursor-pointer"
+                                                onClick={toggleDropdown}
+                                            />
+                                        )}
+
                                         {showDropdown && (
                                             <div
                                                 className="absolute mt-2 w-60 bg-white shadow-md rounded-md border z-50"
@@ -129,6 +149,14 @@ const Header = () => {
                                                     >
                                                         Dự án đăng ký tình
                                                         nguyện viên
+                                                    </li>
+                                                    <li
+                                                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                                        onClick={
+                                                            handleNavigateDonationHistory
+                                                        }
+                                                    >
+                                                        Lịch sử ủng hộ
                                                     </li>
                                                 </ul>
                                             </div>

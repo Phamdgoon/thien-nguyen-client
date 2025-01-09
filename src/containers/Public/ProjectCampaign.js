@@ -34,6 +34,7 @@ const ProjectCampaign = () => {
                 formattedTitle
             ).replace(":campaignId", campaignId)}`
         );
+        window.scrollTo({ top: 0, behavior: "smooth" });
     };
     return (
         <div className="w-full flex flex-col items-center justify-center">

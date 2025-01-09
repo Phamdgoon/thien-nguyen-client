@@ -11,6 +11,7 @@ import {
 import { AiOutlineLogout } from "react-icons/ai";
 import { TbReport } from "react-icons/tb";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
+import { FaSearch } from "react-icons/fa";
 
 const icons = {
     CiLogin,
@@ -31,5 +32,6 @@ const icons = {
     TbReport,
     MdOutlineVolunteerActivism,
     IoChatbubbleEllipsesOutline,
+    FaSearch,
 };
 export default icons;

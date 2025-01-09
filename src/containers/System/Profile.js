@@ -25,11 +25,12 @@ const Profile = () => {
     }, [dispatch]);
     useEffect(() => {
         if (currentData) {
+            const avatar = blobToBase64(currentData?.avatar);
             setPayload({
                 name: currentData?.name || "",
                 email: currentData?.email || "",
                 phone: currentData?.phone || "",
-                avatar: blobToBase64(currentData?.avatar) || "",
+                avatar: avatar || "",
             });
         }
     }, [currentData]);
@@ -52,7 +53,7 @@ const Profile = () => {
 
     const handleUploadFile = async (e) => {
         const imageBase64 = await fileToBase64(e.target.files[0]);
-        console.log(imageBase64);
+        console.log("Uploaded Image Base64:", imageBase64);
         setPayload((prev) => ({ ...prev, avatar: imageBase64 }));
     };
 

@@ -10,8 +10,8 @@ export const fileToBase64 = (file) =>
 
 export const blobToBase64 = (blob) => {
     if (blob) {
-        new Buffer(blob, "base64").toString("binary");
+        return new Buffer(blob, "base64").toString("binary");
     } else {
-        return false;
+        return "";
     }
 };

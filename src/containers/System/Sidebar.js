@@ -1,8 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom"; // Import useNavigate
 import * as actions from "../../store/actions";
 import icons from "../../utils/icons";
+
 const activeStyle =
     "hover:bg-gray-300 text-[#ED1651] flex items-center rounded-md px-4 gap-2 py-2 font-bold bg-gray-200 ";
 const notActiveStyle =
@@ -10,8 +11,19 @@ const notActiveStyle =
 
 const { AiOutlineLogout } = icons;
 
-const Sidebar = ({ title, menu }) => {
+const Sidebar = ({ title, menu, type }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        dispatch(actions.logout(type));
+        if (type === "organization") {
+            navigate("/login-organization");
+        } else if (type === "admin") {
+            navigate("/login-system");
+        }
+    };
+
     return (
         <div className="w-64 bg-[#ED1651] text-white p-6">
             <h2 className="text-2xl font-bold mb-8">{title}</h2>
@@ -29,10 +41,7 @@ const Sidebar = ({ title, menu }) => {
                         </NavLink>
                     );
                 })}
-                <span
-                    onClick={() => dispatch(actions.logout())}
-                    className={notActiveStyle}
-                >
+                <span onClick={handleLogout} className={notActiveStyle}>
                     <AiOutlineLogout />
                     Thoát
                 </span>

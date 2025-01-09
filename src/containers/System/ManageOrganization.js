@@ -29,11 +29,11 @@ const ManageOrganization = () => {
             <table className="w-full table-auto ">
                 <thead>
                     <tr className="flex w-full bg-gray-100">
-                        <th className="border flex-1 py-2">Id tổ chức</th>
+                        <th className="border flex-1 py-2">STT</th>
                         <th className="border flex-1 py-2">Ảnh đại diện</th>
                         <th className="border flex-1 py-2">Tên tổ chức</th>
                         <th className="border flex-1 py-2">Email</th>
-                        <th className="border flex-1 py-2">Phone</th>
+                        <th className="border flex-1 py-2">Số điện thoại</th>
                         <th className="border flex-1 py-2">Địa chỉ</th>
                         <th className="border flex-1 py-2">Tùy chọn</th>
                     </tr>
@@ -46,13 +46,13 @@ const ManageOrganization = () => {
                             </td>
                         </tr>
                     ) : (
-                        organizations.map((item) => (
+                        organizations.map((item, index) => (
                             <tr
                                 className="flex items-center h-16 cursor-pointer"
                                 key={item.id}
                             >
                                 <td className="border px-2 flex-1 h-full flex items-center justify-center ">
-                                    {`${item?.id?.slice(0, 20)}...`}
+                                    {index + 1}
                                 </td>
                                 <td className="border flex-1 h-full flex items-center justify-center ">
                                     <img
@@ -62,7 +62,7 @@ const ManageOrganization = () => {
                                     />
                                 </td>
                                 <td className="border px-2 flex-1 h-full flex items-center justify-center ">
-                                    {`${item?.name?.slice(0, 20)}...`}
+                                    {`${item?.name}`}
                                 </td>
                                 <td className="border px-2 flex-1 h-full flex items-center justify-center ">
                                     {item?.email}

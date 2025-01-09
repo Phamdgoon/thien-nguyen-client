@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import * as actions from "../../store/actions";
 import { useNavigate } from "react-router-dom";
 import { path } from "../../utils/constant";
+import Swal from "sweetalert2";
 
 const LoginSystem = () => {
     const dispatch = useDispatch();
@@ -20,11 +21,17 @@ const LoginSystem = () => {
 
         let invalids = validate(finalPayload, setInvalidFields);
         if (invalids === 0) {
-            dispatch(actions.login(finalPayload));
-            navigate(path.SYSTEM);
+            const response = await dispatch(actions.loginAdmin(finalPayload));
+
+            if (response?.err === 4) {
+                Swal.fire("Lỗi", response.msg, "error");
+            } else if (response?.err === 2) {
+                Swal.fire("Lỗi", response.msg, "error");
+            } else {
+                navigate(path.SYSTEM);
+            }
         }
     };
-
     return (
         <div className="w-full flex flex-col items-center justify-center">
             <div className="bg-white w-[600px] p-[30px] pb-[100px] mt-5 rounded-md shadow-lg">

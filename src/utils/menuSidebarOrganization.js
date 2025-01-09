@@ -21,6 +21,12 @@ const menuSidebarOrganization = [
         path: "/to-chuc/quan-ly-tinh-nguyen-vien",
         icon: <MdOutlineVolunteerActivism />,
     },
+    {
+        id: 4,
+        text: "Quản lý ủng hộ",
+        path: "/to-chuc/quan-ly-ung-ho",
+        icon: <MdOutlineVolunteerActivism />,
+    },
 ];
 
 export default menuSidebarOrganization;

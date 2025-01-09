@@ -7,7 +7,11 @@ const Organization = () => {
     return (
         <div className="w-full flex flex-col items-center justify-center">
             <div className="flex w-full h-screen flex-auto">
-                <Sidebar title="Tổ chức" menu={menuSidebarOrganization} />
+                <Sidebar
+                    title="Tổ chức"
+                    menu={menuSidebarOrganization}
+                    type="organization"
+                />
                 <div className="flex-auto bg-white shadow-md h-full overflow-y-scroll">
                     <Outlet />
                 </div>

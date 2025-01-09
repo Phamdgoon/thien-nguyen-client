@@ -7,14 +7,21 @@ const Campaign = ({ campaigns, onCampaignClick }) => {
                 {campaigns && campaigns.length > 0 ? (
                     campaigns.map((campaign, index) => {
                         const currentAmount =
-                            parseFloat(campaign?.currentAmount) || 0;
+                            parseFloat(
+                                campaign?.currentAmount
+                                    ?.toString()
+                                    .replace(/[^\d]/g, "")
+                            ) || 0;
                         const targetAmount =
-                            parseFloat(campaign?.targetAmount) || 0;
+                            parseFloat(
+                                campaign?.targetAmount
+                                    ?.toString()
+                                    .replace(/[^\d]/g, "")
+                            ) || 0;
                         const progressPercentage =
                             targetAmount > 0
                                 ? (currentAmount / targetAmount) * 100
                                 : 0;
-
                         return (
                             <div
                                 key={index}
@@ -28,7 +35,7 @@ const Campaign = ({ campaigns, onCampaignClick }) => {
                                     alt="img"
                                     className="absolute top-0 left-0 w-full h-1/2 object-cover rounded-tl-md rounded-tr-md"
                                 />
-                                <div className="flex right-2 items-center justify-center px-4 py-2 bg-[#ed1651] rounded-md absolute">
+                                <div className="flex right-2 items-center justify-center px-4 py-2 bg-[#ED1651] rounded-md absolute">
                                     <span className="text-white">
                                         {campaign?.category?.value}
                                     </span>
@@ -50,7 +57,7 @@ const Campaign = ({ campaigns, onCampaignClick }) => {
                                 <div className="absolute w-4/5 top-1/2 mt-20 rounded-md left-10">
                                     <div className="progress h-3 bg-gray-200 rounded-full mt-20">
                                         <div
-                                            className="progress-bar bg-[#ed1651] h-full rounded-full"
+                                            className="progress-bar bg-[#ED1651] h-full rounded-full"
                                             role="progressbar"
                                             style={{
                                                 width: `${progressPercentage}%`,
@@ -62,8 +69,8 @@ const Campaign = ({ campaigns, onCampaignClick }) => {
                                     </div>
                                 </div>
                                 <div className="absolute bottom-14 font-bold text-xl left-10 w-4/5 flex justify-between">
-                                    <span className="text-[#ed1651]">
-                                        {campaign?.currentAmount} đ
+                                    <span className="text-[#ED1651]">
+                                        {campaign?.currentAmount}
                                     </span>
                                     <span className="text-black">
                                         {Math.round(progressPercentage)} %

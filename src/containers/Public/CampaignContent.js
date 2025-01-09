@@ -17,7 +17,7 @@ const CampaignContent = () => {
     const { campaigns } = useSelector((state) => state.campaign);
     const { categories } = useSelector((state) => state.app);
     const [currentPage, setCurrentPage] = useState(0);
-    const campaignsPerPage = 6;
+    const campaignsPerPage = 8;
     const [totalData, setTotalData] = useState({
         totalCampaign: 0,
         totalOrganization: 0,
@@ -74,6 +74,7 @@ const CampaignContent = () => {
         navigate(
             `${path.CATEGORY_CAMPAIGNS.replace(":categoryCode", categoryCode)}`
         );
+        window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     const handleCampaignClick = (title, campaignId) => {
@@ -84,6 +85,7 @@ const CampaignContent = () => {
                 formattedTitle
             ).replace(":campaignId", campaignId)}`
         );
+        window.scrollTo({ top: 0, behavior: "smooth" });
     };
     const formatAmount = (amount) => {
         if (amount >= 1e9) {
@@ -151,6 +153,8 @@ const CampaignContent = () => {
                     nextLinkClassName={
                         "px-3 py-2 bg-[#ED1651] text-white rounded-md flex items-center justify-center"
                     }
+                    marginPagesDisplayed={1}
+                    pageRangeDisplayed={2}
                 />
             )}
             <div className="w-full relative mt-10">

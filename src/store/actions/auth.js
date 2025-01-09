@@ -3,7 +3,9 @@ import {
     apiRegister,
     apiLogin,
     apiLoginOrganization,
+    apiLoginAdmin,
 } from "../../services/auth";
+import { getCurrent } from "./user";
 export const register = (payload) => async (dispatch) => {
     try {
         const response = await apiRegister(payload);
@@ -35,21 +37,21 @@ export const login = (payload) => async (dispatch) => {
 
         if (response?.data.err === 0) {
             const { token, roleName, userId } = response.data;
-            if (roleName === "Admin") {
-                localStorage.setItem("adminToken", token);
-            } else if (roleName === "User") {
-                localStorage.setItem("userToken", token);
-            }
+
+            localStorage.setItem("userToken", token);
 
             dispatch({
                 type: actionTypes.LOGIN_SUCCESS,
                 data: { token, userId, roleName },
             });
+            dispatch(getCurrent());
+            return { token, roleName, userId };
         } else {
             dispatch({
                 type: actionTypes.LOGIN_FAIL,
                 data: response.data.msg,
             });
+            return { err: response.data.err, msg: response.data.msg };
         }
     } catch (error) {
         dispatch({
@@ -58,11 +60,37 @@ export const login = (payload) => async (dispatch) => {
         });
     }
 };
+export const loginAdmin = (payload) => async (dispatch) => {
+    try {
+        const response = await apiLoginAdmin(payload);
 
+        if (response?.data.err === 0) {
+            const { token, userId, roleName } = response.data;
+
+            localStorage.setItem("adminToken", token);
+
+            dispatch({
+                type: actionTypes.LOGIN_SUCCESS,
+                data: { token, userId, roleName },
+            });
+            return { token, userId, roleName };
+        } else {
+            dispatch({
+                type: actionTypes.LOGIN_FAIL,
+                data: response.data.msg,
+            });
+            return { err: response.data.err, msg: response.data.msg };
+        }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.LOGIN_FAIL,
+            data: null,
+        });
+    }
+};
 export const loginOrganization = (payload) => async (dispatch) => {
     try {
         const response = await apiLoginOrganization(payload);
-
         if (response?.data.err === 0) {
             const { token, organizationId } = response.data;
             localStorage.setItem("organizationToken", token);
@@ -71,11 +99,13 @@ export const loginOrganization = (payload) => async (dispatch) => {
                 type: actionTypes.LOGIN_SUCCESS,
                 data: { token, organizationId },
             });
+            return { success: true };
         } else {
             dispatch({
                 type: actionTypes.LOGIN_FAIL,
                 data: response.data.msg,
             });
+            return { success: false, msg: response.data.msg };
         }
     } catch (error) {
         dispatch({

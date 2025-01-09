@@ -78,26 +78,49 @@ const Modal = ({ isOpen, closeModal, onSubmit }) => {
                 <div className="flex flex-col gap-4">
                     <div>
                         <label className="block text-gray-700">Kỹ năng</label>
-                        <InputFormV2
+                        <select
                             value={skills}
-                            setValue={setSkills}
-                            keyPayload="skills"
-                            invalidFields={invalidFields}
-                            setinvalidFields={setInvalidFields}
-                        />
+                            onChange={(e) => setSkills(e.target.value)}
+                            className="block w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="">-- Chọn kỹ năng --</option>
+                            <option value="gói quà tặng">
+                                Kỹ năng gói quà tặng
+                            </option>
+                            <option value="tổ chức sự kiện">
+                                Kỹ năng tổ chức
+                            </option>
+                            <option value="vệ sinh môi trường">
+                                Kỹ năng môi trường
+                            </option>
+                            <option value="cứu trợ thiên tai">
+                                Kỹ năng cứu trợ
+                            </option>
+                            <option value="dạy học">Kỹ năng dạy học</option>
+                            <option value="phân phát quà tặng">
+                                Kỹ năng phân phát quà
+                            </option>
+                        </select>
                     </div>
                     <div>
                         <label className="block text-gray-700">
                             Kinh nghiệm
                         </label>
-                        <InputFormV2
+                        <select
                             value={experience}
-                            setValue={setExperience}
-                            keyPayload="experience"
-                            invalidFields={invalidFields}
-                            setinvalidFields={setInvalidFields}
-                        />
+                            onChange={(e) => setExperience(e.target.value)}
+                            className="block w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="">-- Chọn kinh nghiệm --</option>
+                            <option value="đã tham gia tình nguyện viên trước đó">
+                                Đã tham gia tình nguyện viên trước đó
+                            </option>
+                            <option value="chưa tham gia tình nguyện viên trước đó">
+                                Chưa tham gia tình nguyện viên trước đó
+                            </option>
+                        </select>
                     </div>
+
                     <Button
                         text="Đăng ký"
                         textColor="text-white"

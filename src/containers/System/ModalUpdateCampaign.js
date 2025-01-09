@@ -22,11 +22,10 @@ const ModalUpdateCampaign = ({ isOpen, closeModal, campaign }) => {
 
     const handleChange = (key) => (value) => {
         if (key === "targetAmount") {
-            // Gỡ định dạng hiện tại (nếu có), sau đó format lại
-            const rawValue = value.replace(/[^0-9]/g, ""); // Chỉ lấy số
+            const rawValue = value.replace(/[^0-9]/g, "");
             const formattedValue = parseInt(rawValue || "0", 10)
                 .toLocaleString("vi-VN")
-                .replace(/,/g, "."); // Định dạng thành "1.000.000"
+                .replace(/,/g, ".");
             setFormData((prev) => ({ ...prev, [key]: `${formattedValue}đ` }));
         } else {
             setFormData((prev) => ({ ...prev, [key]: value }));
@@ -56,8 +55,6 @@ const ModalUpdateCampaign = ({ isOpen, closeModal, campaign }) => {
     const handleUpdate = async (e, campaignId) => {
         e.preventDefault();
         const updateData = { ...formData };
-
-        // Gỡ bỏ định dạng của targetAmount trước khi gửi
         if (updateData.targetAmount) {
             updateData.targetAmount = parseInt(
                 updateData.targetAmount.replace(/[^0-9]/g, ""),
@@ -65,7 +62,6 @@ const ModalUpdateCampaign = ({ isOpen, closeModal, campaign }) => {
             );
         }
 
-        // Kiểm tra nếu không có thay đổi
         if (Object.keys(updateData).length === 0) {
             Swal.fire(
                 "Thông báo",
@@ -134,13 +130,13 @@ const ModalUpdateCampaign = ({ isOpen, closeModal, campaign }) => {
                                     <img
                                         src={formData.image}
                                         alt="Campaign"
-                                        className="w-[180px] h-[140px] rounded-lg"
+                                        className="w-[200px] h-[180px] rounded-lg"
                                     />
                                 )}
                                 <div className="w-full">
                                     <textarea
-                                        cols="74"
-                                        rows="5"
+                                        cols="72"
+                                        rows="8"
                                         label="Mô tả"
                                         value={formData.description || ""}
                                         readOnly

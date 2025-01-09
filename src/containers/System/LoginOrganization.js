@@ -3,6 +3,7 @@ import { InputForm, Button } from "../../components";
 import validate from "../../utils/Common/validateField";
 import { useDispatch } from "react-redux";
 import * as actions from "../../store/actions";
+import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { path } from "../../utils/constant";
 const LoginOrganization = () => {
@@ -19,8 +20,16 @@ const LoginOrganization = () => {
 
         let invalids = validate(finalPayload, setInvalidFields);
         if (invalids === 0) {
-            dispatch(actions.loginOrganization(finalPayload));
-            navigate(path.ORGANIZATION);
+            const result = await dispatch(
+                actions.loginOrganization(finalPayload)
+            );
+            if (result?.success) {
+                navigate(path.ORGANIZATION);
+            } else {
+                Swal.fire(
+                    result?.msg || "Đăng nhập thất bại, vui lòng thử lại."
+                );
+            }
         }
     };
     return (

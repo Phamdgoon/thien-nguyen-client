@@ -72,3 +72,35 @@ export const apiChat = (message) =>
             reject(error);
         }
     });
+
+export const apiGetDonationById = () =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const response = await axiosConfig({
+                method: "get",
+                url: "/api/v1/user/get-donation-byId",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            resolve(response);
+        } catch (error) {
+            reject(error);
+        }
+    });
+export const apiGetDonationByCampaignId = (campaignId) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const response = await axiosConfig({
+                method: "get",
+                url: `/api/v1/user/get-donation-by-campaignId/${campaignId}`,
+                headers: {
+                    "X-Token-Type": "organization",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            resolve(response);
+        } catch (error) {
+            reject(error);
+        }
+    });

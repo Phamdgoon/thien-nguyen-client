@@ -13,7 +13,7 @@ import { Button, InputFormV2, Modal } from "../../components";
 import moment from "moment";
 import { SliderImage } from "../System";
 
-const { CiMobile3, CiLocationOn, CiMail } = icons;
+const { CiMobile3, CiLocationOn, CiMail, BsPersonCircle } = icons;
 
 const CampaignDetail = () => {
     const dispatch = useDispatch();
@@ -54,8 +54,12 @@ const CampaignDetail = () => {
         );
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
-    const currentAmount = parseFloat(campaign?.currentAmount) || 0;
-    const targetAmount = parseFloat(campaign?.targetAmount) || 0;
+    const currentAmount =
+        parseFloat(campaign?.currentAmount?.toString().replace(/[^\d]/g, "")) ||
+        0;
+    const targetAmount =
+        parseFloat(campaign?.targetAmount?.toString().replace(/[^\d]/g, "")) ||
+        0;
     const progressPercentage =
         targetAmount > 0 ? (currentAmount / targetAmount) * 100 : 0;
 
@@ -95,7 +99,7 @@ const CampaignDetail = () => {
             <div className="w-4/5 flex relative justify-center gap-10">
                 <div className="w-1/2">
                     <SliderImage images={campaign?.images} />
-                    <div className="flex items-center justify-center px-4 py-2 bg-[#ed1651] rounded-md absolute top-2 left-4">
+                    <div className="flex items-center justify-center px-4 py-2 bg-[#ED1651] rounded-md absolute top-2 left-4">
                         <span className="text-white">
                             {campaign?.category?.value}
                         </span>
@@ -106,14 +110,22 @@ const CampaignDetail = () => {
                         {campaign?.title}
                     </span>
                     <div className="w-full flex flex-col bg-[#f0f8ff] p-4 h-[250px] rounded-md gap-2 relative">
-                        <div className="w-full flex items-center gap-4">
-                            <img
-                                src={campaign?.organization?.image}
-                                className="w-[60px] h-[60px] object-cover rounded-full "
-                            />
-                            <span className="text-[#ed1651] font-medium">
-                                {campaign?.organization?.name}
-                            </span>
+                        <div className="w-full flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                <img
+                                    src={campaign?.organization?.image}
+                                    className="w-[60px] h-[60px] object-cover rounded-full "
+                                />
+                                <span className="text-[#ED1651] font-medium">
+                                    {campaign?.organization?.name}
+                                </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <BsPersonCircle color="#374151" />
+                                <span className="text-[#374151] font-semibold">
+                                    {campaign?.donations?.length} lượt ủng hộ
+                                </span>
+                            </div>
                         </div>
                         <div className="flex justify-between">
                             <span className=" text-gray-700">
@@ -126,7 +138,7 @@ const CampaignDetail = () => {
                         <div className="absolute w-full pr-8 mt-20 rounded-md ">
                             <div className="progress h-3 bg-gray-200 rounded-full mt-8">
                                 <div
-                                    className="progress-bar bg-[#ed1651] h-full rounded-full"
+                                    className="progress-bar bg-[#ED1651] h-full rounded-full"
                                     role="progressbar"
                                     style={{
                                         width: `${progressPercentage}%`,
@@ -139,12 +151,18 @@ const CampaignDetail = () => {
                         </div>
                         <div className="flex justify-between mt-12">
                             <span className=" text-gray-700">Đã đạt được</span>
-                            <span className="font-bold text-[#ed1651] text-xl">
+                            <span className="font-bold text-[#ED1651] text-xl">
                                 {campaign?.currentAmount}
                             </span>
                         </div>
                     </div>
-                    {campaign.statusId === 3 ? (
+                    {currentAmount >= targetAmount ? (
+                        <div className="w-full flex items-center justify-center bg-[#fef2f5] h-[70px] rounded-md">
+                            <span className="text-[#686c8b] text-lg font-bold">
+                                Dự án đã hoàn thành
+                            </span>
+                        </div>
+                    ) : campaign.statusId === 3 ? (
                         <div className="w-full flex items-center justify-center bg-[#fef2f5] h-[70px] rounded-md">
                             <span className="text-[#686c8b] text-lg font-bold">
                                 Kết thúc thời gian gây quỹ
@@ -250,7 +268,7 @@ const CampaignDetail = () => {
                                 </span>
                                 <span className="text-[#7A7A7A]">
                                     Hotline:{" "}
-                                    <span className="text-[#ed1651] font-medium">
+                                    <span className="text-[#ED1651] font-medium">
                                         {campaign?.organization?.phone}
                                     </span>
                                 </span>
@@ -282,7 +300,7 @@ const CampaignDetail = () => {
                             <tbody>
                                 {campaign?.donations?.map((donor, index) => {
                                     const formattedDate = moment(
-                                        donor.donationDate
+                                        donor?.donationDate
                                     ).format("HH:mm:ss - DD/MM/YYYY");
 
                                     return (
@@ -291,10 +309,10 @@ const CampaignDetail = () => {
                                             className="text-center border border-gray-200"
                                         >
                                             <td className="px-4 py-2">
-                                                {donor.user.name}
+                                                {donor?.user?.name}
                                             </td>
                                             <td className="px-4 py-2">
-                                                {formatCurrency(donor.amount)}
+                                                {formatCurrency(donor?.amount)}
                                             </td>
                                             <td className="px-4 py-2">
                                                 {formattedDate}

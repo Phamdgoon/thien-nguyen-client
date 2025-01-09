@@ -11,12 +11,14 @@ export const path = {
     CREATE_CAMPAIGN: "tao-moi-chien-dich",
     MANAGE_CAMPAIGN: "quan-ly-chien-dich",
     MANAGE_VOLUNTEER: "quan-ly-tinh-nguyen-vien",
+    MANAGE_DONATION: "quan-ly-ung-ho",
     MANAGE_CAMPAIGN_ADMIN: "quan-ly-chien-dich-admin",
     MANAGE_ORGANIZATION_ADMIN: "quan-ly-to-chuc-admin",
     MANAGE_USER_ADMIN: "quan-ly-nguoi-dung-admin",
     MANAGE_REPORT: "quan-ly-bao-cao-admin",
     LOGIN_ORGANIZATION: "/login-organization",
     PROFILE: "/profile",
+    DONATION_HISTORY: "/lich-su-ung-ho",
     DETAIL_REGISTER_CAMPAIGN: "/du-an-dang-ky-tinh-nguyen-vien",
 };
 

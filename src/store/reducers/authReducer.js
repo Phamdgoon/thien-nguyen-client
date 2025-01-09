@@ -1,12 +1,15 @@
 import actionTypes from "../actions/actionTypes";
+
 const initState = {
     isLoggedIn: false,
     token: null,
     userId: null,
     organizationId: null,
+    roleName: null,
     msg: "",
     update: false,
 };
+
 const authReducer = (state = initState, action) => {
     switch (action.type) {
         case actionTypes.REGISTER_SUCCESS:
@@ -16,6 +19,7 @@ const authReducer = (state = initState, action) => {
                 isLoggedIn: true,
                 token: action.data.token,
                 userId: action.data.userId,
+                roleName: action.data.roleName,
                 organizationId: action.data.organizationId,
                 msg: "",
             };
@@ -28,6 +32,7 @@ const authReducer = (state = initState, action) => {
                 token: null,
                 userId: null,
                 organizationId: null,
+                roleName: null,
                 update: !state.update,
             };
         case actionTypes.LOGOUT:
@@ -37,6 +42,7 @@ const authReducer = (state = initState, action) => {
                 token: null,
                 userId: null,
                 organizationId: null,
+                roleName: null,
                 msg: "",
             };
         default:

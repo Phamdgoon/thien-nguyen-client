@@ -22,6 +22,8 @@ import {
 } from "./containers/System";
 import ProjectCampaign from "./containers/Public/ProjectCampaign";
 import CreateCampaign from "./containers/System/CreateCampaign";
+import DonationHistory from "./containers/Public/DonationHistory";
+import ManageDonation from "./containers/System/ManageDonation";
 
 function App() {
     return (
@@ -70,6 +72,10 @@ function App() {
                         path={path.MANAGE_VOLUNTEER}
                         element={<ManageVolunteer />}
                     />
+                    <Route
+                        path={path.MANAGE_DONATION}
+                        element={<ManageDonation />}
+                    />
                 </Route>
                 <Route path={path.LOGIN_SYSTEM} element={<LoginSystem />} />
                 <Route
@@ -78,6 +84,10 @@ function App() {
                 />
 
                 <Route path={path.PROFILE} element={<Profile />} />
+                <Route
+                    path={path.DONATION_HISTORY}
+                    element={<DonationHistory />}
+                />
                 <Route
                     path={path.DETAIL_REGISTER_CAMPAIGN}
                     element={<DetailRegisterCampaign />}

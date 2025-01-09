@@ -39,3 +39,16 @@ export const apiLoginOrganization = (payload) =>
             reject(error);
         }
     });
+export const apiLoginAdmin = (payload) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const response = await axiosConfig({
+                method: "post",
+                url: "/api/v1/auth/login-admin",
+                data: payload,
+            });
+            resolve(response);
+        } catch (error) {
+            reject(error);
+        }
+    });
